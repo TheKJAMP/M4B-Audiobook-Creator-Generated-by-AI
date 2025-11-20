@@ -1,0 +1,24 @@
+# M4B Creator - Python Dependencies
+
+# Required packages
+Pillow>=10.0.0
+
+# Optional: Drag & Drop support for Windows
+windnd>=1.0.0
+
+# Optional: Cross-platform Drag & Drop support
+# tkinterdnd2>=0.3.0
+
+# Build dependencies (only needed for creating executable)
+# pyinstaller>=6.0.0
+
+# Notes:
+# - tkinter is included with Python (standard library)
+# - FFmpeg must be installed separately (not a Python package)
+#   Download from: https://ffmpeg.org/download.html
+#
+# Installation:
+#   pip install -r requirements.txt
+#
+# To build executable, also install:
+#   pip install pyinstaller
