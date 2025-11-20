@@ -113,7 +113,7 @@ ffmpeg -version
 1. Download the latest release from the [Releases](https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI/releases) page
 2. Extract the archive
 3. Run `m4b_creator.exe`
-4. **Note:** FFmpeg must still be installed separately
+4. **Note:** FFmpeg, python must still be installed separately
 
 ## Usage Guide
 
@@ -176,13 +176,6 @@ The tool creates M4B (MPEG-4 Audio Book) files with:
 - **Chapters:** One chapter per input file
 - **Metadata:** Complete metadata embedding
 - **Cover Art:** Embedded as attached picture (PNG format)
-- **Compatibility:** Optimized for Plex Media Server and audiobook players
-
-### Plex Compatibility Features
-- `media_type=2` (Audiobook)
-- `track=1` metadata
-- `M4A` brand with proper formatting
-- Year format compatible with Plex (YYYY only)
 
 ## Supported Input Formats
 
