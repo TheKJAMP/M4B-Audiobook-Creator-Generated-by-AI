@@ -5,6 +5,36 @@ All notable changes to M4B Creator will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-11-20
+
+### Added
+- **Multi-Language Support**
+  - Complete German/English language switching
+  - Language toggle button in top-right corner
+  - All UI elements, dialogs, and messages translated
+  - Custom Yes/No dialog with translated buttons
+  - Language preference maintained throughout application
+- **Enhanced User Interface**
+  - Improved language switcher with current language indicator
+  - All buttons, labels, and status messages are now translatable
+  - Better internationalization architecture for future languages
+
+### Changed
+- Updated executable name from `M4B-Audiobook-Creator.exe` to `M4B_Creator.exe`
+- Improved dialog system with language-aware message boxes
+- Enhanced translation system with 170+ translatable strings
+
+### Fixed
+- Dialog buttons now properly display in selected language
+- Status messages and error dialogs respect language setting
+- File dialog titles now translate correctly
+
+### Technical Details
+- Added `TRANSLATIONS` dictionary with 'de' and 'en' language support
+- Implemented `switch_language()` method for runtime language switching
+- Added `update_ui_language()` to refresh all UI elements dynamically
+- Custom `_ask_yes_no()` dialog with translated buttons
+
 ## [1.0.0] - 2025-01-20
 
 ### Added
@@ -69,7 +99,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PyInstaller compatible for executable builds
 
 ### Known Limitations
-- GUI is in German (English version planned)
 - Chapter titles are auto-numbered (custom titles planned)
 - Drag & Drop requires optional windnd package
 - No progress bar (shows status messages only)
@@ -77,7 +106,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned Features
-- [ ] English language version
+- [ ] Additional language support (French, Spanish, etc.)
+- [ ] Language preference saving between sessions
 - [ ] Custom chapter title editing
 - [ ] Progress bar with percentage
 - [ ] Audio preview/playback
@@ -85,7 +115,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Batch cover art download
 - [ ] Command-line interface (CLI)
 - [ ] Preset templates
-- [ ] Multi-language support
 - [ ] Dark mode theme
 - [ ] Undo/Redo functionality
 - [ ] Drag & Drop for chapter reordering
