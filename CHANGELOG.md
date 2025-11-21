@@ -5,7 +5,7 @@ All notable changes to M4B Creator will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] - 2025-11-20
+## [1.0.1] - 2025-11-20
 
 ### Added
 - **Multi-Language Support**
@@ -144,6 +144,7 @@ For more information, see:
 - [README.md](README.md) - User guide
 - [BUILD.md](BUILD.md) - Build instructions
 - [GitHub Releases](https://github.com/yourusername/m4b-creator/releases) - Download releases
+
 
 
 
