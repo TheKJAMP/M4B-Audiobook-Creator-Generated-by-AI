@@ -105,17 +105,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Next contents:
+### Next contents Update 1.2: 
+
 - [✅] Additional language support (English, German)
 - [✅] Custom chapter title editing
 - [✅] Progress bar with percentage
 - [✅] Dark mode theme
-- [❌] Batch cover art download TheAudioDB
+
+### Future updates ****
+- [❌] Metadata download with TheAudioDB
 - [❌] Command-line interface (CLI)
 - [❌] Preset templates
 - [❌] Language preference saving between sessions
 - [❌] Undo/Redo functionality
-- [❌] Portable mode (no installation)
 
 
 ---
@@ -142,5 +144,6 @@ For more information, see:
 - [README.md](README.md) - User guide
 - [BUILD.md](BUILD.md) - Build instructions
 - [GitHub Releases](https://github.com/yourusername/m4b-creator/releases) - Download releases
+
 
 
