@@ -18,7 +18,7 @@ Not Ready: ❌
 - [✅] Progress bar with percentage
 - [✅] Dark mode theme
 - [✅] New Desing
-
+[Releases](https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI/releases)
 ### More Languages Version 1.3: 
 - [❌] French
 - [❌] Spanish
@@ -173,8 +173,8 @@ See the [Building from Source](#building-from-source) section below.
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/m4b-creator-electron.git
-   cd m4b-creator-electron
+   git clone https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI.git
+   cd M4B-Audiobook-Creator-Generated-by-AI
    ```
 
 2. **Install Dependencies**
@@ -187,12 +187,184 @@ See the [Building from Source](#building-from-source) section below.
    npm run dev
    ```
 
+   This will:
+   - Start the Vite development server (React frontend)
+   - Launch Electron in development mode
+   - Enable hot-reload for instant updates
+   - Open DevTools for debugging
+
 4. **Build for Production**
    ```bash
    npm run electron:build
    ```
 
    The portable executable will be created in `dist-electron/M4B-Creator-v1.0.3-Portable.exe`
+
+### Development Guide for Electron
+
+This project uses **Electron** as a desktop framework, which combines:
+- **Main Process (Node.js)**: Backend logic, file system access, FFmpeg integration
+- **Renderer Process (React + TypeScript)**: Frontend UI with modern web technologies
+
+#### Technology Stack
+
+**Frontend (Renderer Process):**
+- **React 18** - Component-based UI framework
+- **TypeScript** - Type-safe JavaScript with IntelliSense
+- **Vite** - Ultra-fast build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework for styling
+- **Lucide React** - Modern icon library
+
+**Backend (Main Process):**
+- **Electron 25.9.8** - Desktop application framework
+- **Node.js** - JavaScript runtime with full system access
+- **child_process** - For executing FFmpeg/FFprobe commands
+- **fs** - File system operations
+
+**IPC (Inter-Process Communication):**
+- **contextBridge** - Secure bridge between main and renderer
+- **ipcMain/ipcRenderer** - Bidirectional communication channels
+
+#### Project Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Electron Main Process                │
+│                     (electron/main.js)                  │
+│  - FFmpeg/FFprobe execution                            │
+│  - File system operations                              │
+│  - IPC handlers                                        │
+│  - Window management                                   │
+└─────────────────┬───────────────────────────────────────┘
+                  │
+                  │ IPC Communication
+                  │ (contextBridge + ipcRenderer)
+                  │
+┌─────────────────▼───────────────────────────────────────┐
+│              Preload Script (Secure Bridge)             │
+│                  (electron/preload.js)                  │
+│  - Exposes safe APIs to renderer                       │
+│  - No direct Node.js access in renderer                │
+└─────────────────┬───────────────────────────────────────┘
+                  │
+┌─────────────────▼───────────────────────────────────────┐
+│                 Renderer Process (UI)                   │
+│                  (src/*.tsx, src/*.css)                 │
+│  - React components (App.tsx, MetadataTab.tsx)         │
+│  - TypeScript business logic                           │
+│  - Tailwind CSS styling                                │
+│  - User interactions                                   │
+└─────────────────────────────────────────────────────────┘
+```
+
+#### Key Development Files
+
+**Main Process:**
+- `electron/main.js` - Entry point, window creation, IPC handlers
+- `electron/preload.js` - Security bridge exposing APIs to renderer
+
+**Renderer Process:**
+- `src/App.tsx` - Main React component (folder management, drag & drop)
+- `src/MetadataTab.tsx` - Metadata editor component
+- `src/main.tsx` - React entry point
+- `src/index.css` - Tailwind CSS styles
+- `src/global.d.ts` - TypeScript type definitions for Electron APIs
+
+**Configuration:**
+- `package.json` - Dependencies, scripts, build configuration
+- `vite.config.ts` - Vite build settings (React, Electron integration)
+- `tsconfig.json` - TypeScript compiler options
+- `tailwind.config.js` - Tailwind CSS customization
+- `postcss.config.js` - PostCSS plugins (Tailwind processing)
+
+#### Adding New Features
+
+**1. Adding a New IPC Handler (Backend):**
+
+In `electron/main.js`:
+```javascript
+ipcMain.handle('your-handler-name', async (event, arg1, arg2) => {
+  try {
+    // Your Node.js/FFmpeg logic here
+    return { success: true, data: result };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+```
+
+In `electron/preload.js`:
+```javascript
+contextBridge.exposeInMainWorld('electronAPI', {
+  yourFunctionName: (arg1, arg2) => ipcRenderer.invoke('your-handler-name', arg1, arg2),
+});
+```
+
+In `src/global.d.ts`:
+```typescript
+interface Window {
+  electronAPI: {
+    yourFunctionName: (arg1: string, arg2: number) => Promise<{success: boolean, data?: any, error?: string}>;
+  };
+}
+```
+
+**2. Using the API in React:**
+
+In `src/App.tsx` or any component:
+```typescript
+const handleYourFeature = async () => {
+  const result = await window.electronAPI.yourFunctionName('test', 123);
+  if (result.success) {
+    console.log('Success:', result.data);
+  } else {
+    console.error('Error:', result.error);
+  }
+};
+```
+
+#### Development Tips
+
+**Hot Reload:**
+- Frontend changes (src/*.tsx, src/*.css) reload automatically
+- Backend changes (electron/*.js) require restarting `npm run dev`
+
+**Debugging:**
+- **Renderer Process**: Chrome DevTools opens automatically in dev mode (F12)
+- **Main Process**: Use `console.log()` - output appears in terminal
+- Add `mainWindow.webContents.openDevTools()` in main.js to always show DevTools
+
+**TypeScript:**
+- Always define types in `global.d.ts` for IPC calls
+- Use type-safe interfaces for data structures
+- Run `npm run build` to check for type errors
+
+**Common Pitfalls:**
+- Don't use Node.js APIs directly in React components (security risk)
+- Always use IPC communication through preload.js
+- Remember to restart dev server for electron/*.js changes
+- Check FFmpeg is in PATH when testing audio processing
+
+#### Build Configuration
+
+The build process is configured in `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "vite",                    // Frontend dev server
+    "build": "vite build",            // Build React app
+    "electron:dev": "electron .",     // Run Electron in dev
+    "electron:build": "npm run build && electron-builder"  // Create .exe
+  }
+}
+```
+
+**Electron Builder Configuration:**
+- Platform: Windows only (nsis installer + portable)
+- Output: `dist-electron/`
+- Includes: Built React app + Electron runtime
+- Excludes: node_modules, src files, dev dependencies
 
 ### Project Structure
 
@@ -277,7 +449,7 @@ Error: FFmpeg is not installed or not in PATH
 ### No Audio Files Detected
 
 ```
-Keine Audiodateien gefunden!
+No audio files found!
 ```
 
 **Solution:**
@@ -289,7 +461,7 @@ Keine Audiodateien gefunden!
 
 **Solution:**
 1. Close and restart the application
-2. Use the "Ordner hinzufügen" button instead
+2. Use the "Add folder" button instead
 3. Make sure you're dragging folders, not individual files
 
 ### M4B Creation Fails
@@ -298,33 +470,19 @@ Keine Audiodateien gefunden!
 1. Check the Status Log for detailed error messages
 2. Ensure output directory has write permissions
 3. Verify input audio files are not corrupted
-4. Try with "Original Qualität" instead of re-encoding
+4. Try with "Original quality" instead of re-encoding
 
 ## Known Limitations
 
 - **Windows Only:** Currently only builds for Windows (Mac/Linux support planned)
 - **Large Files:** Very large audiobooks (100+ hours) may take significant time
-- **GUI Language:** Primarily German (English translation in progress)
+- **GUI Language:** Primarily German (English, more later)
 
 ## Roadmap
 
-### Version 1.1
-- [ ] Complete English translation
-- [ ] Custom chapter title editing
-- [ ] Drag to reorder chapters
-- [ ] Audio preview/playback
-
-### Version 1.2
+### Version 1.4
 - [ ] Mac and Linux builds
-- [ ] Automatic chapter detection from silence
-- [ ] Batch metadata editor
-- [ ] Cover art search/download
 
-### Version 2.0
-- [ ] Built-in audio player
-- [ ] Chapter splitting and merging
-- [ ] Subtitle/description support
-- [ ] Cloud storage integration
 
 ## Contributing
 
@@ -336,9 +494,7 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
@@ -353,14 +509,17 @@ If you encounter issues:
 
 1. Check that FFmpeg is installed: `ffmpeg -version`
 2. Review the Status Log in the application
-3. Check the [Troubleshooting](#troubleshooting) section
+3. Check the Troubleshooting section
 4. Open an issue on GitHub.
    - Error message from Status Log
    - Steps to reproduce
+   - example audio file. 
    - Your system information (Windows version, FFmpeg version)
 
 
+## License
 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
 
