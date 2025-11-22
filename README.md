@@ -8,7 +8,7 @@ A user-friendly GUI tool for creating M4B audiobook files with metadata and chap
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue.svg)
 ![Electron](https://img.shields.io/badge/Electron-25.9.8-47848F.svg)
 
-### Next contents Update 1.2: 
+### Next contents [Update 1.2 ](https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI/releases) : 
 
 Ready: ✅
 Not Ready: ❌
@@ -19,7 +19,7 @@ Not Ready: ❌
 - [✅] Dark mode theme
 - [✅] New Desing
 
-[Releases](https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI/releases)
+
 
 ### More Languages Version 1.3: 
 - [❌] French
