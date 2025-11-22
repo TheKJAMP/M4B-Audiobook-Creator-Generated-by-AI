@@ -1,0 +1,56 @@
+{
+  "name": "m4b-creator",
+  "version": "1.0.3",
+  "description": "M4B Audiobook Creator with modern UI",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.263.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "concurrently": "^8.2.0",
+    "electron": "^25.3.1",
+    "electron-builder": "^24.6.3",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.5",
+    "vite-plugin-electron": "^0.14.0",
+    "wait-on": "^7.0.1"
+  },
+  "build": {
+    "appId": "com.m4bcreator.app",
+    "productName": "M4B Creator",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist-web/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "portable": {
+      "artifactName": "M4B-Creator-v${version}-Portable.exe"
+    }
+  }
+}
