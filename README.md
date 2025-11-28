@@ -19,7 +19,7 @@ A user-friendly GUI tool for creating M4B audiobook files with metadata and chap
 - ![Platform](https://img.shields.io/badge/platform-macOS%20Apple%20Silicon-lightgrey.svg) (M1, M2, M3 or higher)
 [Download: MacARM64.dmg](https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI/releases/download/1.02-1-Linux/M4B-Creator-1.0.3-mac-arm64.dmg)
 or [ MacOS-SourceCode.zip ](https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI/releases/download/1.02-1-Linux/MacOS-SourceCode.zip)
-- ![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue.svg) (*.exe)
+- ![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue.svg) (V1.02 - *.exe)
 [Download: 
 M4B-Creator-v1.0.2-Portable.exe ](https://github.com/TheKJAMP/M4B-Audiobook-Creator-Generated-by-AI/releases/download/1.02/M4B-Creator-v1.0.2-Portable.exe)
 
